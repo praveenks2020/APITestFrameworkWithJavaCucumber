@@ -8,6 +8,8 @@ import io.restassured.response.Response;
 
 public class ResponseValidation {
  static boolean result;
+ 
+ 	//validate response for latest rates end point
 	public static void responseLatestValidation(Response reponse) {
 		int statusCode = reponse.getStatusCode();		
 		if(statusCode==200) {
@@ -19,7 +21,7 @@ public class ResponseValidation {
 				assertTrue(reponse.asString().contains("timestamp"));
 			} else {
 				assertTrue(reponse.asString().contains("error"));
-				System.out.println("Endpoint returned successfully with error code: "+ errorCode(reponse));
+				System.out.println("Server returned the error code: "+ errorCode(reponse));
 			}
 		} else {
 			System.out.println("Request failed with status code: "+statusCode);
@@ -27,6 +29,7 @@ public class ResponseValidation {
 		}
 	}
 	
+	//validate response for latest rates end point
 	public static void responseHistoricValidation(Response reponse) {
 		int statusCode = reponse.getStatusCode();		
 		if(statusCode==200) {
@@ -39,7 +42,7 @@ public class ResponseValidation {
 				assertTrue(reponse.asString().contains("historical"));
 			} else {
 				assertTrue(reponse.asString().contains("error"));
-				System.out.println("Endpoint returned successfully with error code: "+ errorCode(reponse));
+				System.out.println("Server returned the error code: "+ errorCode(reponse));
 			}
 		} else {
 			System.out.println("Request failed with status code: "+statusCode);
@@ -47,6 +50,8 @@ public class ResponseValidation {
 		}
 	}
 	
+	
+	//Fetch error code returned with response 
 	private static int errorCode(Response reponse) {
 		int errorCode = (int) reponse.then()
 				.contentType(ContentType.JSON)
